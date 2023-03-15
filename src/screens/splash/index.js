@@ -3,17 +3,21 @@ import { Hero } from "./Hero";
 import { Logo } from "./Logo";
 import { SigninButton } from "./SinginButton";
 import { ScreenWrapper as Wrapper } from "../../components/ScreenWrapper";
+import { FullScreenLoader } from "../../components/FullScreenLoader";
 
-export function SplashScreen() {
+export function SplashScreen({ handleSignin, isSigningIn }) {
   return (
-    <Wrapper>
-      <SLogo />
-      <Description>
-        Your personal AI nutritionist to help you perform and feel your best
-      </Description>
-      <SHero />
-      <SSigninButton />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <SLogo />
+        <Description>
+          Your personal AI nutritionist to help you perform and feel your best
+        </Description>
+        <SHero />
+        <SSigninButton onClick={handleSignin} />
+      </Wrapper>
+      {isSigningIn && <FullScreenLoader />}
+    </>
   );
 }
 

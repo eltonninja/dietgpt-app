@@ -1,7 +1,15 @@
-import { SplashScreen } from "./screens";
+import { FullScreenLoader } from "./components/FullScreenLoader";
+import { useAuth } from "./contexts/auth";
+import { ChatRoomScreen, SplashScreen } from "./screens";
 
 function App() {
-  return <SplashScreen />;
+  const { user, isLoading: isSigningIn, signin, signout } = useAuth();
+
+  return user ? (
+    <ChatRoomScreen />
+  ) : (
+    <SplashScreen handleSignin={signin} isSigningIn={isSigningIn} />
+  );
 }
 
 export default App;

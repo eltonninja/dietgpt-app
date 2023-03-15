@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { FaApple } from "react-icons/fa";
 import { colors } from "../../values/colors";
 
-export function SigninButton({ className }) {
+export function SigninButton({ onClick, className }) {
   return (
-    <SButton className={className}>
+    <SButton onClick={onClick} className={className}>
       <SFaApple size={20} color={colors.white} />
       Sign in with Apple
     </SButton>
