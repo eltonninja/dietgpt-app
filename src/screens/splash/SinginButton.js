@@ -14,14 +14,15 @@ export function SigninButton({ className }) {
 const SButton = styled.button({
   display: "flex",
   width: "100%",
-  maxWidth: 345,
-  padding: 12,
+  maxWidth: 320,
+  padding: 15,
   justifyContent: "center",
   alignItems: "center",
   gap: 6,
   background: colors.black,
   color: colors.white,
   borderRadius: 99999,
+  border: "none",
   fontSize: 18,
 });
 
