@@ -4,6 +4,7 @@ import { Header } from "./Header";
 import { MessageBox } from "./MesssageBox";
 import { colors } from "../../values/colors";
 import { messageTypes } from "../../values/messageTypes";
+import { Options } from "./Options";
 
 const messages = [
   {
@@ -53,6 +54,7 @@ export function ChatRoomScreen() {
     <SWrapper>
       <SHeader />
       <SMessageBox data={messages} />
+      <Options options={["Yes, let's do it!", "No, I have questions."]} />
     </SWrapper>
   );
 }

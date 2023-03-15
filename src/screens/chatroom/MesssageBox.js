@@ -16,6 +16,7 @@ const MessageBoxWrapper = styled.div({
   flexDirection: "column",
   gap: 18,
   overflowY: "auto",
+  paddingBottom: 40,
 });
 
 function MessageItem({ message }) {
