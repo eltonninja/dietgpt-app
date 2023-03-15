@@ -7,6 +7,6 @@ export const ScreenWrapper = styled.div({
   height: "100%",
   paddingInline: 15,
   animation: css`
-    ${fadeInAnimation} 1s
+    ${fadeInAnimation} .5s
   `,
 });
