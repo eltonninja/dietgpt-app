@@ -3,11 +3,11 @@ import Avatar1Image from "../../assets/images/avatar1.png";
 import Avatar2Image from "../../assets/images/avatar2.png";
 import { MenuButton } from "./MenuButton";
 
-export function Header() {
+export function Header({ className }) {
   const handleMenuButtonClick = () => {};
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <Avatar src={Avatar1Image} />
       <MenuButton onClick={handleMenuButtonClick} />
       <Avatar2 src={Avatar2Image} />
@@ -17,7 +17,7 @@ export function Header() {
 
 const Wrapper = styled.div({
   display: "flex",
-  padding: 12,
+  paddingBlock: 12,
   gap: 4,
 });
 
