@@ -50,7 +50,7 @@ const messages = [
     content: "I'm 32, male, 5 foot 9, 123lb. I'd like to build muscle",
   },
   {
-    id: 1,
+    id: 7,
     fromBot: true,
     type: messageTypes.TEXT,
     content:

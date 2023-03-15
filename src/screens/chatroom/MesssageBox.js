@@ -5,7 +5,7 @@ export function MessageBox({ data, className }) {
   return (
     <MessageBoxWrapper className={className}>
       {data.map((message) => (
-        <MessageItem message={message} />
+        <MessageItem key={message.id} message={message} />
       ))}
     </MessageBoxWrapper>
   );
