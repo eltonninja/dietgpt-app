@@ -30,7 +30,8 @@ const MessageItemWrapper = styled.div({
   color: colors.white,
   padding: "12px 16px",
   borderRadius: 24,
-  marginLeft: (props) => (props.fromBot ? "0px" : "110px"),
-  marginRight: (props) => (props.fromBot ? "110px" : "0px"),
+  maxWidth: "70%",
+  marginLeft: (props) => (props.fromBot ? "0px" : "auto"),
+  marginRight: (props) => (props.fromBot ? "auto" : "0px"),
   background: (props) => (props.fromBot ? colors.grey : colors.blue),
 });
