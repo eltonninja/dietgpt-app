@@ -6,6 +6,7 @@ import { colors } from "../../values/colors";
 import { messageTypes } from "../../values/messageTypes";
 import { Options } from "./Options";
 import { MessageForm } from "./MessageForm";
+import { Loader } from "./Loader";
 
 const messages = [
   {
@@ -69,7 +70,8 @@ export function ChatRoomScreen() {
       <SHeader />
       <SMessageBox data={messages} />
       {/* <Options options={["Yes, let's do it!", "No, I have questions."]} /> */}
-      <MessageForm onSubmit={handleSubmit} />
+      {/* <MessageForm onSubmit={handleSubmit} /> */}
+      <SLoader />
     </SWrapper>
   );
 }
@@ -85,4 +87,8 @@ const SHeader = styled(Header)({
 const SMessageBox = styled(MessageBox)({
   marginTop: 16,
   flexGrow: 1,
+});
+
+const SLoader = styled(Loader)({
+  marginBlock: 20,
 });
