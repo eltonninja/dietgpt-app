@@ -22,7 +22,8 @@ const Wrapper = styled.div({
   justifyContent: "center",
   alignItems: "center",
   width: 72,
-  height: 54,
+  height: 44,
+  minHeight: 44,
   borderRadius: 24,
   backgroundColor: colors.grey,
 });

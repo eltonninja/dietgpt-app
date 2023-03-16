@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { colors } from "../../values/colors";
 import { FaArrowRight } from "react-icons/fa";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
-export function MessageForm({ onSubmit }) {
+export const MessageForm = forwardRef(({ onSubmit, show = true }, ref) => {
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -22,8 +22,9 @@ export function MessageForm({ onSubmit }) {
   };
 
   return (
-    <Wrapper>
+    <Wrapper show={show}>
       <SInput
+        ref={ref}
         value={text}
         onChange={handleChange}
         rows={2}
@@ -34,10 +35,10 @@ export function MessageForm({ onSubmit }) {
       </SButton>
     </Wrapper>
   );
-}
+});
 
 const Wrapper = styled.div({
-  display: "flex",
+  display: (props) => (props.show ? "flex" : "none"),
   alignItems: "center",
   gap: 20,
   paddingBlock: 18,

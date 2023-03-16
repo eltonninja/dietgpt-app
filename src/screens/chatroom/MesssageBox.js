@@ -1,22 +1,27 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 import { colors } from "../../values/colors";
 
-export function MessageBox({ data, className }) {
+export const MessageBox = forwardRef(({ data, className }, ref) => {
   return (
     <MessageBoxWrapper className={className}>
       {data.map((message) => (
         <MessageItem key={message.id} message={message} />
       ))}
+      <MessageEnd ref={ref} />
     </MessageBoxWrapper>
   );
-}
+});
 
 const MessageBoxWrapper = styled.div({
   display: "flex",
   flexDirection: "column",
   gap: 18,
   overflowY: "auto",
-  paddingBottom: 40,
+});
+
+const MessageEnd = styled.div({
+  marginTop: 30,
 });
 
 function MessageItem({ message }) {

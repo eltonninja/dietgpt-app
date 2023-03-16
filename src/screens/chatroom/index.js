@@ -7,8 +7,9 @@ import { messageTypes } from "../../values/messageTypes";
 import { Options } from "./Options";
 import { MessageForm } from "./MessageForm";
 import { Loader } from "./Loader";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-const messages = [
+const mockupMessages = [
   {
     id: 1,
     fromBot: true,
@@ -59,19 +60,62 @@ const messages = [
 ];
 
 export function ChatRoomScreen() {
+  const [messages, setMessages] = useState(mockupMessages);
+  const messageEndRef = useRef();
+  const inputRef = useRef();
+
+  const isLoading =
+    messages.length === 0 || !messages[messages.length - 1].fromBot;
+
   const handleSubmit = (text) => {
     if (!text) return;
 
-    console.log(`Sending message ${text}`);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: prev[prev.length - 1].id + 1,
+        fromBot: false,
+        type: messageTypes.TEXT,
+        content: text,
+      },
+    ]);
+
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev[prev.length - 1].id + 1,
+          fromBot: true,
+          type: messageTypes.TEXT,
+          content: "Great!",
+        },
+      ]);
+    }, 1000);
   };
+
+  useLayoutEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 0);
+    } else {
+      setTimeout(() => {
+        inputRef.current.value = "";
+        inputRef.current.focus();
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 0);
+    }
+  }, [messages, isLoading]);
 
   return (
     <SWrapper>
       <SHeader />
-      <SMessageBox data={messages} />
+      <SMessageBox ref={messageEndRef} data={messages} />
+
       {/* <Options options={["Yes, let's do it!", "No, I have questions."]} /> */}
       {/* <MessageForm onSubmit={handleSubmit} /> */}
-      <SLoader />
+      {isLoading && <SLoader />}
+      {<MessageForm ref={inputRef} onSubmit={handleSubmit} show={!isLoading} />}
     </SWrapper>
   );
 }
