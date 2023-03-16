@@ -1,35 +1,23 @@
 import styled from "styled-components";
 import { colors } from "../../values/colors";
 import { FaArrowRight } from "react-icons/fa";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
 export const MessageForm = forwardRef(({ onSubmit, show = true }, ref) => {
-  const [text, setText] = useState("");
-
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
-
   const handleKeyDown = (e) => {
     if (!e.shiftKey && e.keyCode === 13) {
       e.preventDefault();
-      onSubmit(text);
+      onSubmit(ref.current.value);
     }
   };
 
   const handleClick = () => {
-    onSubmit(text);
+    onSubmit(ref.current.value);
   };
 
   return (
     <Wrapper show={show}>
-      <SInput
-        ref={ref}
-        value={text}
-        onChange={handleChange}
-        rows={2}
-        onKeyDown={handleKeyDown}
-      />
+      <SInput ref={ref} rows={2} onKeyDown={handleKeyDown} />
       <SButton onClick={handleClick}>
         <FaArrowRight color={colors.white} />
       </SButton>

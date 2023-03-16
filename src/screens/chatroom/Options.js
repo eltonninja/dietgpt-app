@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { colors } from "../../values/colors";
 
-export function Options({ options, className }) {
+export function Options({ options, onSelect, className }) {
+  const handleClick = (option) => {
+    onSelect(option);
+  };
+
   return (
     <Wrapper className={className}>
       {options.map((option) => (
-        <Option>{option}</Option>
+        <Option onClick={() => handleClick(option)}>{option}</Option>
       ))}
     </Wrapper>
   );
@@ -23,4 +27,6 @@ const Option = styled.div({
   padding: "12px 16px",
   borderRadius: 24,
   background: colors.grey,
+  minWidth: 30,
+  textAlign: "center",
 });

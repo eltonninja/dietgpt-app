@@ -64,8 +64,14 @@ export function ChatRoomScreen() {
   const messageEndRef = useRef();
   const inputRef = useRef();
 
-  const isLoading =
-    messages.length === 0 || !messages[messages.length - 1].fromBot;
+  const lastMessage =
+    messages.length === 0 ? null : messages[messages.length - 1];
+
+  const isLoading = !lastMessage || !lastMessage.fromBot;
+  const isQuestion =
+    lastMessage &&
+    lastMessage.fromBot &&
+    lastMessage.type === messageTypes.QUESTION;
 
   const handleSubmit = (text) => {
     if (!text) return;
@@ -86,8 +92,9 @@ export function ChatRoomScreen() {
         {
           id: prev[prev.length - 1].id + 1,
           fromBot: true,
-          type: messageTypes.TEXT,
-          content: "Okay. Great! Let's move on.",
+          type: messageTypes.QUESTION,
+          content: "Okay. Choose one option.",
+          options: ["Yes", "No", "I'm not sure"],
         },
       ]);
     }, 1000);
@@ -100,12 +107,14 @@ export function ChatRoomScreen() {
       }, 0);
     } else {
       setTimeout(() => {
-        inputRef.current.value = "";
-        inputRef.current.focus();
+        if (!isQuestion) {
+          inputRef.current.value = "";
+          inputRef.current.focus();
+        }
         messageEndRef.current.scrollIntoView({ behavior: "smooth" });
       }, 0);
     }
-  }, [messages, isLoading]);
+  }, [isLoading, isQuestion, messages]);
 
   return (
     <SWrapper>
@@ -115,7 +124,11 @@ export function ChatRoomScreen() {
       {/* <Options options={["Yes, let's do it!", "No, I have questions."]} /> */}
       {/* <MessageForm onSubmit={handleSubmit} /> */}
       {isLoading && <SLoader />}
-      {<MessageForm ref={inputRef} onSubmit={handleSubmit} show={!isLoading} />}
+      {isQuestion ? (
+        <Options options={lastMessage.options} onSelect={handleSubmit} />
+      ) : (
+        <MessageForm ref={inputRef} onSubmit={handleSubmit} show={!isLoading} />
+      )}
     </SWrapper>
   );
 }
