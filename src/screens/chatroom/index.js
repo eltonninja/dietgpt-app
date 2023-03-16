@@ -87,7 +87,7 @@ export function ChatRoomScreen() {
           id: prev[prev.length - 1].id + 1,
           fromBot: true,
           type: messageTypes.TEXT,
-          content: "Great!",
+          content: "Okay. Great! Let's move on.",
         },
       ]);
     }, 1000);
