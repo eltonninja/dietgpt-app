@@ -37,6 +37,7 @@ const MessageItemWrapper = styled.div({
   padding: "12px 16px",
   borderRadius: 24,
   maxWidth: "70%",
+  minWidth: 35,
   marginLeft: (props) => (props.fromBot ? "0px" : "auto"),
   marginRight: (props) => (props.fromBot ? "auto" : "0px"),
   background: (props) => (props.fromBot ? colors.grey : colors.blue),
