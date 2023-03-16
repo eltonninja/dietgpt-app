@@ -7,7 +7,7 @@ import { messageTypes } from "../../values/messageTypes";
 import { Options } from "./Options";
 import { MessageForm } from "./MessageForm";
 import { Loader } from "./Loader";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const mockupMessages = [
   {
@@ -92,9 +92,9 @@ export function ChatRoomScreen() {
         {
           id: prev[prev.length - 1].id + 1,
           fromBot: true,
-          type: messageTypes.QUESTION,
+          type: messageTypes.TEXT,
           content: "Okay. Choose one option.",
-          options: ["Yes", "No", "I'm not sure"],
+          // options: ["Yes", "No", "I'm not sure"],
         },
       ]);
     }, 1000);
@@ -109,7 +109,7 @@ export function ChatRoomScreen() {
       setTimeout(() => {
         if (!isQuestion) {
           inputRef.current.value = "";
-          inputRef.current.focus();
+          // inputRef.current.focus();
         }
         messageEndRef.current.scrollIntoView({ behavior: "smooth" });
       }, 0);

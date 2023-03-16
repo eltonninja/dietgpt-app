@@ -9,7 +9,9 @@ export function Options({ options, onSelect, className }) {
   return (
     <Wrapper className={className}>
       {options.map((option) => (
-        <Option onClick={() => handleClick(option)}>{option}</Option>
+        <Option key={option} onClick={() => handleClick(option)}>
+          {option}
+        </Option>
       ))}
     </Wrapper>
   );
