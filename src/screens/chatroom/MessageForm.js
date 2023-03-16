@@ -42,6 +42,7 @@ const SInput = styled.textarea({
   fontSize: 14,
   lineHeight: 1.12,
   flexGrow: 1,
+  resize: "none"
 });
 
 const SButton = styled.button({
