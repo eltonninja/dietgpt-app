@@ -8,66 +8,22 @@ import { Options } from "./Options";
 import { MessageForm } from "./MessageForm";
 import { Loader } from "./Loader";
 import { useLayoutEffect, useRef, useState } from "react";
+import { useMessages, useSendMessage } from "../../hooks/useMessages";
 
-const mockupMessages = [
-  {
-    id: 1,
-    fromBot: true,
-    type: messageTypes.TEXT,
-    content:
-      "Hi! Welcome to Diet GPT! I'm your personal AI to help you figure out how to optimize your diet and supplements to help you feel better!",
-  },
-  {
-    id: 2,
-    fromBot: true,
-    type: messageTypes.TEXT,
-    content:
-      "I've been specifically trained on a huge amount of nutritional and medical science. Feel free to pit my advice against a nutritionist! I'm confident I'd pass the test :)",
-  },
-  {
-    id: 3,
-    fromBot: true,
-    type: messageTypes.QUESTION,
-    content: "Ready to get started?",
-    options: ["Yes, let's do it!", "No, I have questions."],
-  },
-  {
-    id: 4,
-    fromBot: false,
-    type: messageTypes.TEXT,
-    content: "Yes, let's do it!",
-  },
-  {
-    id: 5,
-    fromBot: true,
-    type: messageTypes.TEXT,
-    content:
-      "OK, first I want to get to know you a bit better. Tell me about you - age, gender, weight, height - and what are some issues you face and what you'd like to achieve?",
-  },
-  {
-    id: 6,
-    fromBot: false,
-    type: messageTypes.TEXT,
-    content: "I'm 32, male, 5 foot 9, 123lb. I'd like to build muscle",
-  },
-  {
-    id: 7,
-    fromBot: true,
-    type: messageTypes.TEXT,
-    content:
-      "Gotcha, you want to gain weight. Can you tell me about any other health conditions or concerns you have? Any diagnoses, symptoms?",
-  },
-];
-
-export function ChatRoomScreen() {
-  const [messages, setMessages] = useState(mockupMessages);
+export function ChatRoomScreen({ userId = 1 }) {
+  const {
+    isLoading: isFetching,
+    error,
+    data: messages,
+  } = useMessages({ userId });
   const messageEndRef = useRef();
   const inputRef = useRef();
+  const { sendMessage } = useSendMessage();
 
   const lastMessage =
     messages.length === 0 ? null : messages[messages.length - 1];
 
-  const isLoading = !lastMessage || !lastMessage.fromBot;
+  const isLoading = isFetching || !lastMessage || !lastMessage.fromBot;
   const isQuestion =
     lastMessage &&
     lastMessage.fromBot &&
@@ -76,28 +32,7 @@ export function ChatRoomScreen() {
   const handleSubmit = (text) => {
     if (!text) return;
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: prev[prev.length - 1].id + 1,
-        fromBot: false,
-        type: messageTypes.TEXT,
-        content: text,
-      },
-    ]);
-
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: prev[prev.length - 1].id + 1,
-          fromBot: true,
-          type: messageTypes.TEXT,
-          content: "Okay. Choose one option.",
-          // options: ["Yes", "No", "I'm not sure"],
-        },
-      ]);
-    }, 1000);
+    sendMessage({ userId, text });
   };
 
   useLayoutEffect(() => {

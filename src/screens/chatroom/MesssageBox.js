@@ -5,7 +5,7 @@ import { colors } from "../../values/colors";
 export const MessageBox = forwardRef(({ data, className }, ref) => {
   return (
     <MessageBoxWrapper className={className}>
-      {data.map((message) => (
+      {data?.map?.((message) => (
         <MessageItem key={message.id} message={message} />
       ))}
       <MessageEnd ref={ref} />
